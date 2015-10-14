@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Eneagrama</title>
+  <meta charset="ISO-8859-1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <script src="js/mustache.min.js"></script>
+  <script src="js/preguntas.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <style type="text/css">
+    svg{
+      width: 550px;
+      height:550px;
+    }
+    #chartContent {
+      display: none;
+    }
+
+    #leftMenu {
+      float: left;
+      width: 150px;
+      padding: 0px 0px;
+      margin-right: 20px;
+      line-height: 15px;
+    }
+
+    #rightChart {
+      position: relative;
+      width: 500px;
+      margin: -50px auto;
+    }
+
+    .questionResponses {
+      width: 100px;
+    }
+
+    marker#endtriangle {
+        fill: #555A5C;
+    }
+
+    marker#starttriangle {
+        fill: #555A5C;
+    }
+      
+  </style>
+
+  <script id="questionsTemplate" type="x-tmpl-mustache">
+
+    <form id="formData">
+
+      <h3>Datos Personales</h3>
+
+      <div class="form-group">
+        <input class="btn btn-default" id="saltarCustionario" type="button" value="Saltar cuestionario">
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Email</label>
+        <input type="email" class="form-control" name="email" placeholder="" required>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Apellido</label>
+        <input type="text" class="form-control" name="apellido" placeholder="" required>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Nombres</label>
+        <input type="text" class="form-control" name="nombres" placeholder="" required>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Sexo</label>
+        <select name="sexo"  class="form-control" required>
+          <option>Masculino<value/>
+          <option>Femenino<value/>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Estado Civil</label>
+        <select name="estadoCivil"  class="form-control" required>
+          <option>Soltero</option>
+          <option>Casado</option>
+          <option>Divorciado</option>
+          <option>Viudo</option>
+          <option>Concubino</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Ocupaci&oacute;n / Profesi&oacute;n</label>
+        <input type="text" class="form-control" name="ocupacion" placeholder="" required>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Domicilio</label>
+        <input type="text" class="form-control" name="domicilio" placeholder="" required>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">N&uacute;mero</label>
+        <input type="number" class="form-control" name="numero" placeholder="" required>
+      </div>
+
+     <div class="form-group">
+        <label for="formData">Pa&iacute;s</label>
+        <select name="pais"  class="form-control">
+          <option>Argentina</option>
+          <option>Otro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Provincia</label>
+        <select name="provincia"  class="form-control" required>
+          <option>Capital Federal</option>
+          <option>Buenos Aires</option>
+          <option>Catamarca</option>
+          <option>Chaco</option>
+          <option>Chubut</option>
+          <option>Cordoba</option>
+          <option>Corrientes</option>
+          <option>Entre Rios</option>
+          <option>Formosa</option>
+          <option>Jujuy</option>
+          <option>La Pampa</option>
+          <option>La Rioja</option>
+          <option>Mendoza</option>
+          <option>Misiones</option>
+          <option>Neuquen</option>
+          <option>Rio Negro</option>
+          <option>Salta</option>
+          <option>San Juan</option>
+          <option>San Luis</option>
+          <option>Santa Cruz</option>
+          <option>Santa Fe</option>
+          <option>Santiago del Estero</option>
+          <option>Tierra del Fuego</option>
+          <option>Tucuman</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Localidad / Ciudad</label>
+        <input type="text" class="form-control" name="localidad" placeholder="" required>
+      </div>
+
+      <div class="form-group">
+        <label for="formData">Tel&eacute;fono</label>
+        <input type="tel" class="form-control" name="telefono" placeholder="" required>
+      </div>
+
+
+      <div class="row col-1">
+
+        <h3>Cuestionario</h3>
+        
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>Preguntas</th>
+              <th class="questionResponses">Respuesta</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {{#.}}
+            <tr>
+              <td>{{ text }}</td>
+              <td>
+                <label class="radio-inline">
+                  <input type="radio" name="questionResponse-{{id}}" id="{{id}}-{{tipology}}" value="true"  required> Si
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="questionResponse-{{id}}" id="{{id}}-{{tipology}}" value="false"> No
+                </label>
+              </td>
+            </tr>
+            {{/.}}
+
+          </tbody>
+        </table>
+      </div>
+      <div class="row col-1">
+        <input class="btn btn-default" type="submit" value="Enviar resultados">
+      </div>
+    </form>
+
+  </script>
+
+</head>
+<body>
+  <div class="container">
+
+
+    <div id="questionContent" class="row">
+      
+    </div>
+    <div id="chartContent">
+        <div id="leftMenu">
+          <div class="input-group">
+            <label >ESENCIA</label>
+            <input type="number" class="form-control" id="esencia" placeholder="valor" value="2">
+          </div>
+          <br>
+          <div class="input-group">
+            <label >Grupo 1</label>
+            <input type="number" class="form-control" id="grupo1" placeholder="valor" value="12">
+          </div>
+          <div class="input-group">
+            <label >Grupo 2</label>
+            <input type="number" class="form-control" id="grupo2" placeholder="valor" value="10">
+          </div>
+          <div class="input-group">
+            <label >Grupo 3</label>
+            <input type="number" class="form-control" id="grupo3" placeholder="valor" value="8">
+          </div>
+          <div class="input-group">
+            <label >Grupo 4</label>
+            <input type="number" class="form-control" id="grupo4" placeholder="valor" value="10">
+          </div>
+          <div class="input-group">
+            <label >Grupo5</label>
+            <input type="number" class="form-control" id="grupo5" placeholder="valor" value="12">
+          </div>
+          <div class="input-group">
+            <label >Grupo 6</label>
+            <input type="number" class="form-control" id="grupo6" placeholder="valor" value="10">
+          </div>
+          <div class="input-group">
+            <label >Grupo 7</label>
+            <input type="number" class="form-control" id="grupo7" placeholder="valor" value="8">
+          </div>
+          <div class="input-group">
+            <label >Grupo 8</label>
+            <input type="number" class="form-control" id="grupo8" placeholder="valor" value="10">
+          </div>
+          <div class="input-group">
+            <label >Grupo 9</label>
+            <input type="number" class="form-control" id="grupo9" placeholder="valor" value="10">
+          </div>
+          <br>  
+         <div class="input-group">
+            <h2>MEDIA: <label id="media"></label></h2>
+          </div>
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" id="btnCalcular">Calcular</button>
+            </span>
+          </div>    
+        </div>
+        
+        <div>
+          <div class="input-group">
+            <label>FILTROS</label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="checkPolaridad" checked>
+              Ejes de Polaridad
+            </label>
+          </div>      
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="checkBrazos" checked>
+              Brazos
+            </label>
+          </div> 
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="checkEquilibrio" checked>
+              Ejes Equilibrio
+            </label>
+          </div>                     
+        </div>
+
+        <div id="rightChart">
+          <svg>
+          </svg>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+  var svg;
+  var radius = 177;
+  var radiusAxis = radius + 25;
+  var radiusValueAxis = radiusAxis + 30;
+  var rad = 15;
+  var cx = 300;
+  var cy = 300;
+  var maximo = 0;
+  var minimo = 0;
+  var media = 0;
+  var total = 0;
+  var esencia = 0;
+
+  var EjesPolaresArr = [];
+  var BrazosArr = [];
+  var EjesEquilibrioArr = [];
+
+  var axisValueMedia = {},
+      axisValue = {},
+      axis;
+
+
+  function init(){
+
+    // setting up axis and degrees
+    axisValueMedia = {
+        9: { text:"9", x: cx, y: cy - radiusValueAxis},
+        1: { text:"1", x: cx + Math.cos(-0.85)    * radiusValueAxis , y: cy + Math.sin(-0.85)    * radiusValueAxis},
+        2: { text:"2", x: cx + Math.cos(-0.2) * radiusValueAxis , y: cy + Math.sin(-0.2) * radiusValueAxis},
+        3: { text:"3", x: cx + Math.cos(-0.50) * radiusValueAxis , y: cy - Math.sin(-0.50) * radiusValueAxis},
+        4: { text:"4", x: cx + Math.cos(-1.2)    * radiusValueAxis , y: cy - Math.sin(-1.2)    * radiusValueAxis},
+        5: { text:"5", x: cx - Math.cos(-1.2)    * radiusValueAxis , y: cy - Math.sin(-1.2)    * radiusValueAxis},
+        6: { text:"6", x: cx - Math.cos(-0.50) * radiusValueAxis , y: cy - Math.sin(-0.50) * radiusValueAxis},
+        7: { text:"7", x: cx - Math.cos(-0.2) * radiusValueAxis , y: cy + Math.sin(-0.2) * radiusValueAxis},
+        8: { text:"8", x: cx - Math.cos(-0.85)    * radiusValueAxis , y: cy + Math.sin(-0.85)    * radiusValueAxis} 
+    };  
+    axisValue = {
+        9: { text:"9", x: cx, y: cy - radiusAxis},
+        1: { text:"1", x: cx + Math.cos(-0.85)    * radiusAxis , y: cy + Math.sin(-0.85)    * radiusAxis},
+        2: { text:"2", x: cx + Math.cos(-0.2) * radiusAxis , y: cy + Math.sin(-0.2) * radiusAxis},
+        3: { text:"3", x: cx + Math.cos(-0.50) * radiusAxis , y: cy - Math.sin(-0.50) * radiusAxis},
+        4: { text:"4", x: cx + Math.cos(-1.2)    * radiusAxis , y: cy - Math.sin(-1.2)    * radiusAxis},
+        5: { text:"5", x: cx - Math.cos(-1.2)    * radiusAxis , y: cy - Math.sin(-1.2)    * radiusAxis},
+        6: { text:"6", x: cx - Math.cos(-0.50) * radiusAxis , y: cy - Math.sin(-0.50) * radiusAxis},
+        7: { text:"7", x: cx - Math.cos(-0.2) * radiusAxis , y: cy + Math.sin(-0.2) * radiusAxis},
+        8: { text:"8", x: cx - Math.cos(-0.85)    * radiusAxis , y: cy + Math.sin(-0.85)    * radiusAxis} 
+    };  
+    axis = {
+        9: { text:"9", x: cx, y: cy - radius},
+        1: { text:"1", x: cx + Math.cos(-0.85)    * radius , y: cy + Math.sin(-0.85)    * radius},
+        2: { text:"2", x: cx + Math.cos(-0.2) * radius , y: cy + Math.sin(-0.2) * radius},
+        3: { text:"3", x: cx + Math.cos(-0.50) * radius , y: cy - Math.sin(-0.50) * radius},
+        4: { text:"4", x: cx + Math.cos(-1.2)  * radius , y: cy - Math.sin(-1.2)    * radius},
+        5: { text:"5", x: cx - Math.cos(-1.2)    * radius , y: cy - Math.sin(-1.2)    * radius},
+        6: { text:"6", x: cx - Math.cos(-0.50) * radius , y: cy - Math.sin(-0.50) * radius},
+        7: { text:"7", x: cx - Math.cos(-0.2) * radius , y: cy + Math.sin(-0.2) * radius},
+        8: { text:"8", x: cx - Math.cos(-0.85)    * radius , y: cy + Math.sin(-0.85)    * radius} 
+    };
+
+    var questionsTemplate = $('#questionsTemplate').html();
+    Mustache.parse(questionsTemplate);
+    var rendered = Mustache.render(questionsTemplate, questions);
+    $('#questionContent').html(rendered);
+  };
+
+
+  init();
+
+  $('#saltarCustionario').on('click',function(e){
+    $('#questionContent').hide();
+    $('#chartContent').show(1000);
+  })
+
+  $('#formData').submit(function(event){
+    var formResults = {},
+        formFields = ["email","apellido","nombres","sexo","estadoCivil","ocupacion","domicilio","numero","provincia","localidad","telefono"];
+    event.preventDefault();
+
+    // Saving all form fields
+    formResults.formData = {};
+    formFields.forEach(function(field){
+      formResults.formData[field] = $('[name='+ field +']').val();
+    })
+    
+    // Save chart data
+    formResults.chart = _.chain(questions)
+      .map(function(e){ 
+        var resValue = $('input[name=questionResponse-'+ e.id +']:checked').val() || false;
+        e.value = JSON.parse(resValue);
+        return e;
+      })
+      .filter(function(e) {
+        return e.value == true;
+      })
+      .groupBy('tipology')
+      .pairs()
+      .map(function(e){
+        return { type: e[0] , value: e[1].length }
+      })
+      .value();
+
+      console.log(formResults);
+
+      formResults.chart.forEach(function(item){
+        $('#grupo'+item.type).val(item.value);
+      });
+   
+    $('#questionContent').hide();
+    $('#chartContent').show(1000);
+  });
+
+  $('#btnCalcular').on('click',function(){
+    $('#chartContent').show();
+
+    $('svg').html("");
+
+    initArr();
+
+    esencia = parseInt($('#esencia').val(), 10);
+
+    for (var i = 1; i <= 9; i++) {
+      var valor = parseInt($('#grupo'+i).val(), 10);
+      total+= valor;
+      axis[i].value = valor;
+      axisValue[i].value = valor;
+      axisValueMedia[i].value = valor;
+    };
+
+    maximo = _.max(_.pairs(axis) , function(e){ return e[1].value; })[1].value;
+    minimo = _.min(_.pairs(axis) , function(e){ return e[1].value; })[1].value;
+    media = (maximo+minimo)/2;
+
+    $('#media').text(media);
+
+    initGraph(media);
+
+    // disabled axis
+    disableAxis()
+
+    // SVG arrows on Canva
+    createArrows();
+
+    // Brazos
+    essenseAxis(esencia);
+
+     // Ejes de Polaridad
+    polarityAxis();
+
+    // Ejes de Equilibrio
+    balanceAxis();
+
+    // drawing axis
+    drawDotAxis();
+
+    svg.selectAll("marker").each(function(d, i) {
+      this.parentNode.appendChild(this);
+    });
+
+  });
+
+  $('#checkPolaridad').on('click',function(){
+    EjesPolaresArr.forEach(function(eje){
+      $(eje).toggle();
+    });
+  });
+
+  $('#checkBrazos').on('click',function(){
+     BrazosArr.forEach(function(eje){
+      $(eje).toggle();
+    });
+  });
+
+  $('#checkEquilibrio').on('click',function(){
+    EjesEquilibrioArr.forEach(function(eje){
+      $(eje).toggle();
+    });
+  });
+
+  function loadChart(){
+
+  }
+
+  function initArr(){
+    EjesPolaresArr = [];
+    BrazosArr = [];
+    EjesEquilibrioArr = [];
+  }
+
+  function disableAxis(){
+      var baseColor = '#e9eaed';
+
+      prepareLine(axis[1],axis[7],axis[4],baseColor);
+      prepareLine(axis[2],axis[4],axis[8],baseColor);
+      prepareLine(axis[3],axis[6],axis[9],baseColor);
+      prepareLine(axis[4],axis[1],axis[2],baseColor);
+      prepareLine(axis[5],axis[8],axis[7],baseColor);
+      prepareLine(axis[6],axis[9],axis[3],baseColor);
+      prepareLine(axis[7],axis[5],axis[1],baseColor);
+      prepareLine(axis[8],axis[2],axis[5],baseColor);
+      prepareLine(axis[9],axis[3],axis[6],baseColor);  
+  }
+
+  function drawDotAxis(){
+    for (var i = 1; i <= 9; i++) {
+        drawAxis(5,axis[i].x,axis[i].y,axis[i].value,'',0,"#c4c5cb");
+    };
+  };
+
+  function essenseAxis(essenseValue){
+
+    if      (essenseValue==1) prepareArrow(axis[1],axis[7],axis[4]);
+    else if (essenseValue==2) prepareArrow(axis[2],axis[4],axis[8]);
+    else if (essenseValue==3) prepareArrow(axis[3],axis[6],axis[9]);
+    else if (essenseValue==4) prepareArrow(axis[4],axis[1],axis[2]);
+    else if (essenseValue==5) prepareArrow(axis[5],axis[8],axis[7]);
+    else if (essenseValue==6) prepareArrow(axis[6],axis[9],axis[3]);
+    else if (essenseValue==7) prepareArrow(axis[7],axis[5],axis[1]);
+    else if (essenseValue==8) prepareArrow(axis[8],axis[2],axis[5]);
+    else if (essenseValue==9) prepareArrow(axis[9],axis[3],axis[6]);  
+  }
+
+  function balanceAxis(){
+
+    var balanceAxisArr = [
+      { title:'Ser',        from:5, to:4, fromValue: axis[5].value ,toValue: axis[4].value ,color:'#7b9acc'},
+      { title:'Tener',      from:6, to:3, fromValue: axis[6].value ,toValue: axis[3].value ,color:'#7b9acc'},
+      { title:'Comunicar',  from:7, to:2, fromValue: axis[7].value ,toValue: axis[2].value ,color:'#7b9acc'},
+      { title:'Hacer' ,     from:8, to:1, fromValue: axis[8].value ,toValue: axis[1].value ,color:'#7b9acc'}
+      // { title:'',           from:9, to:9, fromValue: axis[9].value ,toValue: axis[9].value ,color:'#7b9acc'} //Estar
+    ]
+
+    var filteredArr = _.filter(balanceAxisArr , function(e){ return (Math.abs(e.fromValue-e.toValue)<=2) });
+
+    filteredArr.forEach(function(elem){
+      var ejeBalance = drawArrow(axis[elem.from],axis[elem.to],{stroke: elem.color, "stroke-width": "4px"}); 
+
+      var ejeBalanceLabel =   svg.append("text")
+          .attr("y", axis[elem.to].y - 20 )
+          .attr("x", axis[elem.to].x - ((axis[elem.to].x - axis[elem.from].x)/2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .style("fill", "#555A5C")
+          .style("font-size", "16px")
+          .text(elem.title);
+
+      EjesEquilibrioArr.push(ejeBalance[0]);
+      EjesEquilibrioArr.push(ejeBalanceLabel[0]);
+    });
+
+  }
+
+  function polarityAxis(){
+
+
+    var polarityAxisArr = [
+      { title:'ORDEN - Aire',    from:1, to:5, color:'#9966cc', value: ((axis[1].value+axis[5].value)/2), transform: 'rotate(-60 140 340)'},
+      { title:'RELACION - Agua', from:2, to:6, color:'#21abcd', value: ((axis[2].value+axis[6].value)/2), transform: 'rotate(-20 5 -50)'},
+      { title:'IMAGEN - Tierra', from:3, to:7, color:'#0bda51', value: ((axis[3].value+axis[7].value)/2), transform: 'rotate(20 100 800)'},
+      { title:'FUERZA - Fuego' , from:4, to:8, color:'#ff4040', value: ((axis[4].value+axis[8].value)/2), transform: 'rotate(60 120 325)'}
+    ];
+
+    var maximo = _.max(polarityAxisArr , function(e){ return e.value; });
+    var minimo = _.min(polarityAxisArr, function(e){ return e.value; });
+
+    var maximos = _.filter(polarityAxisArr,function(e){ return e.value == maximo.value});
+    var minimos = _.filter(polarityAxisArr,function(e){ return e.value == minimo.value});
+
+
+    maximos.forEach(function(elem){
+      // drawing max
+      var ejePolarMaximo = drawArrow(axis[elem.from],axis[elem.to],{stroke: maximo.color, "stroke-width": "4px"}); 
+      var ejePolarMaximoLabel =  svg.append("text")
+          .attr("transform",elem.transform)
+          .attr("y", axis[elem.to].y)
+          .attr("x", axis[elem.to].x)
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .style("fill", "#555A5C")
+          .style("font-size", "16px")
+          .text(elem.title);
+
+      EjesPolaresArr.push(ejePolarMaximo[0]);
+      EjesPolaresArr.push(ejePolarMaximoLabel[0]);
+    });
+
+    minimos.forEach(function(elem){
+
+      // drawing min
+      var ejePolarMinimo = drawArrow(axis[elem.from],axis[elem.to],{stroke: minimo.color, "stroke-width": "4px","stroke-dasharray":"5,5"});
+      var ejePolarMinimoLabel =  svg.append("text")
+          .attr("transform",elem.transform)
+          .attr("y", axis[elem.to].y)
+          .attr("x", axis[elem.to].x)
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .style("fill", "#555A5C")
+          .style("font-size", "16px")
+          .text(elem.title);
+
+      EjesPolaresArr.push(ejePolarMinimo[0]);
+      EjesPolaresArr.push(ejePolarMinimoLabel[0]);
+    });
+
+  }
+
+  function prepareArrow(point,childA,childB,baseColor){
+    var aColor='#45ac6c', bColor='#f09d7b';
+    if (baseColor) {
+      aColor = baseColor;
+      bColor = baseColor;
+    }
+
+    var brazoA = drawEssenseArrow(point,childA,{stroke: aColor, "stroke-width": "4px"});
+    var brazoB = drawEssenseArrow(point,childB,{stroke: bColor, "stroke-width": "4px"});
+
+    BrazosArr.push(brazoA[0]);
+    BrazosArr.push(brazoB[0]);
+  };
+
+  function prepareLine(point,childA,childB,baseColor){
+    var aColor='#45ac6c', bColor='#f09d7b';
+    if (baseColor) {
+      aColor = baseColor;
+      bColor = baseColor;
+    }
+
+    drawLine(point,childA,{stroke: aColor, "stroke-width": "4px"});
+    drawLine(point,childB,{stroke: bColor, "stroke-width": "4px"});
+  };
+
+  function drawEssenseArrow(pointA,pointB,color){
+
+    return svg.append("line")
+      .attr({
+        x1: pointA.x,
+        y1: pointA.y,
+        x2: pointB.x,
+        y2: pointB.y
+      })
+      .attr("marker-end"  , "url(#endtriangle)")
+      .style(color);
+  };
+
+  function drawArrow(pointA,pointB,color){
+
+    return svg.append("line")
+      .attr({
+        x1: pointA.x,
+        y1: pointA.y,
+        x2: pointB.x,
+        y2: pointB.y
+      })
+      .attr("marker-start", "url(#starttriangle)")
+      .attr("marker-end"  , "url(#endtriangle)")
+      .style(color);
+  };
+
+  function drawLine(pointA,pointB,color){
+
+    return svg.append("line")
+      .attr({
+        x1: pointA.x,
+        y1: pointA.y,
+        x2: pointB.x,
+        y2: pointB.y
+      })
+      .style(color);
+  };
+
+  function drawAxis(r,cx,cy,value,text,media,defaultColor){
+    var color = '#c4c5cb';
+
+    if (value>media) color = '#d9e6b1';
+    else if (value<media) color = '#f3b194';
+    else color = '#fdf6a7';
+
+    if (defaultColor) color = defaultColor;
+
+    svg.append("circle")
+    .attr({
+      r: r,
+      cx: cx,
+      cy: cy
+      })
+    .style({
+      fill: color
+    })
+    svg.append("text")
+      .attr({
+        x: cx - 5,
+        y: cy + 5,
+      })
+      .style({
+        fill:"#737377",
+        "font-size":"16px",
+        "font-weight": "bold"
+      })
+      .text(text);
+  };
+
+
+  function drawText(x,y,text){
+    svg.append("text")
+      .attr({
+        x: x,
+        y: y,
+      })
+      .style({
+        fill:"#737377",
+        "font-size":"16px",
+        "font-weight": "bold"
+      })
+      .text(text);
+  };
+
+  function createArrows(){
+    svg.append('svg:marker')
+      .attr('id','starttriangle')
+      .attr('markerHeight', 3)
+      .attr('markerWidth', 4)
+      .attr('markerUnits', 'strokeWidth')
+      .attr('orient', 'auto')
+      .attr('refX', -4)
+      .attr('refY', 5)
+      .attr('viewBox', '0 0 10 10')
+      .append('svg:path')
+        .attr('d', 'M -2 5 L 8 0 L 8 10 z');
+
+    svg.append('svg:marker')
+      .attr('id','endtriangle')
+      .attr('markerHeight', 3)
+      .attr('markerWidth', 4)
+      .attr('markerUnits', 'strokeWidth')
+      .attr('orient', 'auto')
+      .attr('refX', 12  )
+      .attr('refY', 5)
+      .attr('viewBox', '0 0 10 10')
+      .append('svg:path')
+        .attr('d', 'M 0 0 L 10 5 L 0 10 z');
+  };
+
+  function initGraph(media){
+    svg = d3.select("svg");
+
+    //our outter circle
+    svg.append("circle")
+    .attr({
+      r: radius,
+      cx: cx,
+      cy: cy
+    })
+    .style({
+      stroke: "#e0e2e6",
+      "stroke-width": "4px",
+      fill: "none"
+    });
+
+    // drawing axis Media
+    for (var i = 1; i <= 9; i++) {
+        drawAxis(3,axisValueMedia[i].x,axisValueMedia[i].y,axisValueMedia[i].value,axisValueMedia[i].value,0,"white");
+    };
+
+    // drawing axis Values
+    for (var i = 1; i <= 9; i++) {
+        drawAxis(rad,axisValue[i].x,axisValue[i].y,axisValue[i].value,axisValue[i].text,media);
+    };
+
+};
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
