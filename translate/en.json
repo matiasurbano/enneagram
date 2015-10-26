@@ -67,6 +67,10 @@
   "SettingsHand":"Hand",
   "SettingsWeight":"Weight",
   "SettingsHeight":"Height",
+  "SettingsKg":"Kg",
+  "SettingsPounds":"Pounds",
+  "SettingsCm":"Cm",
+  "SettingsFeet":"Feet",
   "SettingsSetPicture":"Set my picture",
 
   "AccountAccountTitle":"My Account",
