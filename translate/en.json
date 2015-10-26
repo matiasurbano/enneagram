@@ -72,6 +72,12 @@
   "SettingsCm":"Cm",
   "SettingsFeet":"Feet",
   "SettingsSetPicture":"Set my picture",
+  
+  "PlayerTitle":"Choose Player",
+  "PlayerPreviousPlayers":"Previous Players",
+  "PlayerFrom":"from",
+  "PlayerNoRecentClub":"No recent club",
+  "PlayerCantFindPlayer":"Can't find the player?",
 
   "AccountAccountTitle":"My Account",
   "AccountRecentScorecards":"RECENT SCORECARDS",
