@@ -98,6 +98,8 @@
   "ScorecardSubOut":"Sub Out",
   "ScorecardGoalKeeperOnly":"Goal Keeper Only",
   "ScorecardFinished":"Finished",
+  "ScorecardPlayersTeam":"player's team",
+  "ScorecardOpposingTeam":"opposing team",
 
   "AccountAccountTitle":"My Account",
   "AccountRecentScorecards":"RECENT SCORECARDS",
