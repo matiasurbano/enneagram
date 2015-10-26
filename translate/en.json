@@ -80,7 +80,7 @@
   "AccountNewScorecardPlayer":"Player",
   "AccountNewScorecardNumber":"Number",
   "AccountNewScorecardPosition":"Position",
-  "AccountNewScorecardPositionQuestion":"Is {{FirstName}} Starting the Game?",
+  "AccountNewScorecardPositionQuestion":"Is {{firstname}} Starting the Game?",
   "AccountNewScorecardKickOffButton":"Kick Off Scorecard",
   
   "SportSelectTitle":"Select Sport"
