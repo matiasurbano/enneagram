@@ -79,5 +79,8 @@
   "AccountNewScorecardChoose":"Choose Player",
   "AccountNewScorecardNumber":"Number",
   "AccountNewScorecardPosition":"Is Player Starting the Game?",
-  "AccountNewScorecardKickOffButton":"Kick Off Scorecard"
+  "AccountNewScorecardKickOffButton":"Kick Off Scorecard",
+  
+  "SportSelectTitle":"Select Sport"
+  
 }
