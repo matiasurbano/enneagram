@@ -81,6 +81,7 @@
   "AccountNewScorecardNumber":"Number",
   "AccountNewScorecardPosition":"Position",
   "AccountNewScorecardPositionQuestion":"Is {{name}} Starting the Game?",
+  "AccountNewScorecardPositionQuestionDefault":"Player",
   "AccountNewScorecardWhereQuestion":"Where is {{club}} Playing?",
   "AccountNewScorecardHome":"Home",
   "AccountNewScorecardAway":"Away",
