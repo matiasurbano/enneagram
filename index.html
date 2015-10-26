@@ -9,6 +9,7 @@
 
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="js/d3.min.js"></script>
+  <script src="js/jquery.mask.min.js"></script>
   <script src="js/mustache.min.js"></script>
   <script src="js/preguntas.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -155,17 +156,18 @@
 
       <div class="form-group">
         <label for="formData">Tel&eacute;fono</label>
-        <input type="tel" class="form-control" name="telefono" placeholder="" required>
+        <input type="tel" class="form-control phone" name="telefono" placeholder="Ej: (011) 3452-2345" required>
       </div>
 
 
-      <div class="row col-1">
+      <div class="col-1">
 
         <h3>Cuestionario</h3>
         
-        <table class="table table-condensed">
+        <table class="table table-condensed table-striped">
           <thead>
             <tr>
+              <th> # </th>
               <th>Preguntas</th>
               <th class="questionResponses">Respuesta</th>
             </tr>
@@ -174,13 +176,11 @@
 
             {{#.}}
             <tr>
+              <td>{{ id }}</td>
               <td>{{ text }}</td>
               <td>
-                <label class="radio-inline">
-                  <input type="radio" name="questionResponse-{{id}}" id="{{id}}-{{tipology}}" value="true"  required> Si
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="questionResponse-{{id}}" id="{{id}}-{{tipology}}" value="false"> No
+                <label>
+                  <input type="checkbox" name="questionResponse-{{id}}" id="{{id}}-{{tipology}}">
                 </label>
               </td>
             </tr>
@@ -189,7 +189,7 @@
           </tbody>
         </table>
       </div>
-      <div class="row col-1">
+      <div class="col-1">
         <input class="btn btn-default" type="submit" value="Enviar resultados">
       </div>
     </form>
@@ -201,7 +201,7 @@
   <div class="container">
 
 
-    <div id="questionContent" class="row">
+    <div id="questionContent">
       
     </div>
     <div id="chartContent">
@@ -213,39 +213,39 @@
           <br>
           <div class="input-group">
             <label >Grupo 1</label>
-            <input type="number" class="form-control" id="grupo1" placeholder="valor" value="12">
+            <input type="number" class="form-control" id="grupo1" placeholder="valor" value="0">
           </div>
           <div class="input-group">
             <label >Grupo 2</label>
-            <input type="number" class="form-control" id="grupo2" placeholder="valor" value="10">
+            <input type="number" class="form-control" id="grupo2" placeholder="valor" value="0">
           </div>
           <div class="input-group">
             <label >Grupo 3</label>
-            <input type="number" class="form-control" id="grupo3" placeholder="valor" value="8">
+            <input type="number" class="form-control" id="grupo3" placeholder="valor" value="0">
           </div>
           <div class="input-group">
             <label >Grupo 4</label>
-            <input type="number" class="form-control" id="grupo4" placeholder="valor" value="10">
+            <input type="number" class="form-control" id="grupo4" placeholder="valor" value="0">
           </div>
           <div class="input-group">
             <label >Grupo5</label>
-            <input type="number" class="form-control" id="grupo5" placeholder="valor" value="12">
+            <input type="number" class="form-control" id="grupo5" placeholder="valor" value="0">
           </div>
           <div class="input-group">
             <label >Grupo 6</label>
-            <input type="number" class="form-control" id="grupo6" placeholder="valor" value="10">
+            <input type="number" class="form-control" id="grupo6" placeholder="valor" value="0">
           </div>
           <div class="input-group">
             <label >Grupo 7</label>
-            <input type="number" class="form-control" id="grupo7" placeholder="valor" value="8">
+            <input type="number" class="form-control" id="grupo7" placeholder="valor" value="0">
           </div>
           <div class="input-group">
             <label >Grupo 8</label>
-            <input type="number" class="form-control" id="grupo8" placeholder="valor" value="10">
+            <input type="number" class="form-control" id="grupo8" placeholder="valor" value="0">
           </div>
           <div class="input-group">
             <label >Grupo 9</label>
-            <input type="number" class="form-control" id="grupo9" placeholder="valor" value="10">
+            <input type="number" class="form-control" id="grupo9" placeholder="valor" value="0">
           </div>
           <br>  
          <div class="input-group">
@@ -319,6 +319,8 @@
 
   function init(){
 
+    $('.phone').mask('(000) 0000-0000');
+
     // setting up axis and degrees
     axisValueMedia = {
         9: { text:"9", x: cx, y: cy - radiusValueAxis},
@@ -383,7 +385,7 @@
     formResults.chart = _.chain(questions)
       .map(function(e){ 
         var resValue = $('input[name=questionResponse-'+ e.id +']:checked').val() || false;
-        e.value = JSON.parse(resValue);
+        e.value = JSON.parse((resValue==="on")?true:false);
         return e;
       })
       .filter(function(e) {
