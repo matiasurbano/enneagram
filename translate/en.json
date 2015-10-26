@@ -81,6 +81,7 @@
   "AccountNewScorecardNumber":"Number",
   "AccountNewScorecardPosition":"Position",
   "AccountNewScorecardPositionQuestion":"Is {{name}} Starting the Game?",
+  "AccountNewScorecardWhereQuestion":"Where is {{club}} Playing?",
   "AccountNewScorecardKickOffButton":"Kick Off Scorecard",
   
   "SportSelectTitle":"Select Sport"
