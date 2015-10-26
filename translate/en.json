@@ -82,6 +82,12 @@
   "AccountNewScorecardPosition":"Position",
   "AccountNewScorecardPositionQuestion":"Is {{name}} Starting the Game?",
   "AccountNewScorecardWhereQuestion":"Where is {{club}} Playing?",
+  "AccountNewScorecardHome":"Home",
+  "AccountNewScorecardAway":"Away",
+  "AccountNewScorecardMatchFixture":"Match Fixture",
+  "AccountNewScorecardAnonymous":"Anonymous",
+  "AccountNewScorecardPlayersClub":"Players Club",
+  "AccountNewScorecardOpposingClub":"Opposing Club",
   "AccountNewScorecardKickOffButton":"Kick Off Scorecard",
   
   "SportSelectTitle":"Select Sport"
