@@ -9,6 +9,8 @@
   "CommonTabLogin" :"Log In",
   "CommonLeft" :"Left",
   "CommonRight" :"Right",
+  "CommonPlayer" :"Player",
+  "CommonClub" :"Club",
 
   "IntroTabGetStarted" :"Get Started",
   "IntroWizard1Title" :"Next Level Analysis",
@@ -78,6 +80,11 @@
   "PlayerFrom":"from",
   "PlayerNoRecentClub":"No recent club",
   "PlayerCantFindPlayer":"Can't find the player?",
+
+  "ClubChoose":"Choose",
+  "ClubOpposing":"Opposing",
+  "ClubClubsOutside":"Clubs Outside",
+  "ClubCantFindClub":"Can't find their club?",
 
   "AccountAccountTitle":"My Account",
   "AccountRecentScorecards":"RECENT SCORECARDS",
