@@ -76,9 +76,11 @@
   "AccountTabNewScorecard":"New Scorecard",
 
   "AccountNewScorecardTitle":"Set Up Scorecard",
-  "AccountNewScorecardChoose":"Choose Player",
+  "AccountNewScorecardChoose":"Choose",
+  "AccountNewScorecardPlayer":"Player",
   "AccountNewScorecardNumber":"Number",
-  "AccountNewScorecardPosition":"Is Player Starting the Game?",
+  "AccountNewScorecardPosition":"Position",
+  "AccountNewScorecardPositionQuestion":"Is {{FirstName}} Starting the Game?",
   "AccountNewScorecardKickOffButton":"Kick Off Scorecard",
   
   "SportSelectTitle":"Select Sport"
