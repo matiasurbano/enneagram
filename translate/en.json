@@ -131,7 +131,7 @@
   "ScorecardDataPointAssist":"Assist",
   "ScorecardDataPointShotOnTarget":"Shot on Target",
   "ScorecardDataPointShotOffTarget":"Shot off Target",
-  "ScorecardDataPointTurnover":"Turnover",
+  "ScorecardDataPointTurnover":"Turnover #########",
   "ScorecardDataPointThrowIn":"Throw In",
   "ScorecardDataPointFreeKick":"Free Kick",
   "ScorecardDataPointPoorFreeKick":"Poor Free Kick",
@@ -161,7 +161,7 @@
   "ScorecardDataPointGKSaveBody":"GK Save Body",
 
   "ScorecardGamePeriodsFirstHalf":"First Half",
-  "ScorecardGamePeriodsSecondHalf":"Second Half",
+  "ScorecardGamePeriodsSecondHalf":"Second Half #####",
   "ScorecardGamePeriodsExtraTime":"Extra Time",
   "ScorecardGamePeriodsGameOver":"Game Over",
 
