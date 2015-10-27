@@ -23,7 +23,7 @@
   "IntroWizard4Content" :"Make sure to allow location services when requested. This enables StatsOne to map where you play, as well as the weather conditions of your next game.",
 
   "SignupTitle":"Control Your Game",
-  "SignupSubTitle":"CREATE YOUR *STATSONE* ACCOUNT",
+  "SignupSubTitle":"CREATE YOUR <b>STATSONE</b> ACCOUNT",
   "SignupFullName":"Full Name",
   "SignupFullNamePlaceholder":"Full Name",
   "SignupEmailAddress":"Email Address",
