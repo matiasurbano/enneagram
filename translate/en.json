@@ -112,7 +112,7 @@
   
   "ScorecardStart":"Start",
   "ScorecardStop":"Stop",
-  "ScorecardClaimQuestion":"Do you want to *claim* this scorecard?",
+  "ScorecardClaimQuestion":"Do you want to <b>claim</b> this scorecard?",
   "ScorecardOffensive":"Offensive",
   "ScorecardDefensive":"Defensive",
   "ScorecardAnalytics":"Analytics",
