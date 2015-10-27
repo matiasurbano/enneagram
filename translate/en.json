@@ -69,6 +69,17 @@
   "HomeViewScorecard":"View Scorecard",
   "HomeHavingTrouble":"Having trouble?",
   
+  "InsightGreatGame":"Great Game",
+  "InsightWellPlayed":"Well Played!",
+  "InsightTextPlayerTheirScorecard":"Text player their scorecard",
+  "InsightPhoneNumber":"Phone Number",
+  "InsightPhoneNumberPlaceholder":"Phone Number",
+  "InsightSendScorecard":"Send Scorecard",
+  "InsightPasses":"Passes",
+  "InsightTackles":"Tackles",
+  "InsightShots":"Shots",
+  "InsightSendScorecard":"Send Scorecard",
+  
   "SettingsTitle":"Settings",
   "SettingsLogout":"Log Out",
   "SettingsLanguage":"Language",
