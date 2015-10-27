@@ -102,11 +102,13 @@
   "PlayerFrom":"from",
   "PlayerNoRecentClub":"No recent club",
   "PlayerCantFindPlayer":"Can't find the player?",
+  "PlayerSearchPlayerByName":"Search player by their name",
 
   "ClubChoose":"Choose",
   "ClubOpposing":"Opposing",
   "ClubClubsOutside":"Clubs Outside",
   "ClubCantFindClub":"Can't find their club?",
+  "ClubSearchClubsPlaceholder":"Search Clubs",
   
   "ScorecardStart":"Start",
   "ScorecardStop":"Stop",
