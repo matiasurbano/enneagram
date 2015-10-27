@@ -59,6 +59,16 @@
   "LoginNotAccount":"Haven't got an account?",
   "LoginRegister":"Register",
 
+  "HomeStartNewScorecard":"Start New Scorecard",
+  "HomeStartTitleOr":"Or",
+  "HomeStartWithCode":"Start With Code",
+  "HomePlayersFirstName":"Players First Name",
+  "HomeBeingScoredOn":"Is this being scored on",
+  "HomePlayerPhone":"{{player}}'s Phone?",
+  "HomeStartScoring":"Start Scoring",
+  "HomeViewScorecard":"View Scorecard",
+  "HomeHavingTrouble":"Having trouble?",
+  
   "SettingsTitle":"Settings",
   "SettingsLogout":"Log Out",
   "SettingsLanguage":"Language",
