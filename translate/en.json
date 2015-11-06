@@ -118,7 +118,7 @@
   "PlayerSearchPlayerByName":"Search player by their name",
   
   "ClubChoose":"Choose",
-  "ClubOpposing":"Opposing",
+  "ClubOpposing":"Opposing Club",
   "ClubClubsOutside":"Clubs Outside",
   "ClubCantFindClub":"Can't find their club?",
   "ClubSearchClubsPlaceholder":"Search Clubs",
@@ -150,7 +150,7 @@
   "ScorecardMsgClearingGameDataConfirm":"Are you sure you want to clear your current game data? If so, your scorecard will be cleared and reset.",
   "ScorecardSubedOff":"subedOff",
   "ScorecardSubedOn":"subedOn",
-  "ScorecardMsgClockNotRunning":"The Clock Isn\'t Running!",
+  "ScorecardMsgClockNotRunning":"The Clock Isn't Running!",
   "ScorecardMsgClockNotRunningTemplate":"You need to start or resume the clock before trying to create any player or fixture events.",
   "ScorecardMsgSMSTemplate":"Great game! Your new scorecard code is [value].\nOpen StatsOne and enter the code to view all the action in this pending scorecard.",
   "ScorecardMsgWellDone":"Well Done!",
